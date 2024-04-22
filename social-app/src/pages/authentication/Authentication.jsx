@@ -19,7 +19,7 @@ const Authentication = () => {
                                 </div>
 
                                 {/* <Login/> */}
-                                <Register/>
+                                {/* <Register/> */}
                             </Card>
                     </div>
                 </Grid>

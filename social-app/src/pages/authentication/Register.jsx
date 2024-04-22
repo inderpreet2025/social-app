@@ -6,11 +6,16 @@ import * as Yup from "yup";
 const initialValues={firstName: "", lastName: "", email: "", password: "", gender: ""};
 const validationSchema={email:Yup.string().email("Invalid email!").required("Email is required!"), password:Yup.string().min(6, "Password must be atleast 6 characters long!").required("Password is required!")};
 const Register = () => {
-    const [formValue, setFormValue] = useState();
+    const [gender, setGender] = useState(initialValues);
 
     const handleSubmit = (values) => {
+        values.gender = gender;
         console.log("handle submit", values);
     };
+
+    const handleChange = (event) => {
+        setGender(event.target.value);
+    }
     return(
         <>
             <Formik onSubmit={handleSubmit} 
@@ -34,16 +39,12 @@ const Register = () => {
                             <Field as={TextField} name="password" placeholder="password" type="password" variant="outlined" fullWidth />
                             <ErrorMessage name="password" component={"div"} className="text-red-500"/>
                         </div>
-                        <RadioGroup
-        row
-        aria-label="gender"
-        name="gender"
-      >
-        <FormControlLabel value="female" control={<Radio />} label="Female" />
-        <FormControlLabel value="male" control={<Radio />} label="Male" />
-        <FormControlLabel value="other" control={<Radio />} label="Other" />
-        <ErrorMessage name="gender" component={"div"} className="text-red-500"/>
-      </RadioGroup>
+                        <RadioGroup onChange={handleChange} row aria-label="gender" name="gender">
+                            <FormControlLabel value="female" control={<Radio />} label="Female" />
+                            <FormControlLabel value="male" control={<Radio />} label="Male" />
+                            <FormControlLabel value="other" control={<Radio />} label="Other" />
+                            <ErrorMessage name="gender" component={"div"} className="text-red-500"/>
+                        </RadioGroup>
                     </div>
                     <Button sx={{padding: ".8rem 0rem"}} fullWidth type="submit" variant="contained" color="primary">Register</Button>
                 </Form>
